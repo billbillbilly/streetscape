@@ -3,4 +3,4 @@
 ^README\.Rmd$
 ^README\.md$
 ^\.github$
-^\images$
+^images$

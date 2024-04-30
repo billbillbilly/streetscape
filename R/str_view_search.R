@@ -216,7 +216,7 @@ strview_search_nnb <- function(x,
   df$data$distance <- sqrt((df$data$coordinates.x-xy[1])^2 + (df$data$coordinates.y-xy[2])^2)
   data_ <- df$data
   data_ <- data_[order(data_$distance, decreasing = FALSE), ]
-  df$data <- data_[1,]
+  df$data <- data_[1,][, -c('distance')]
   # data_ <- df$data
   # df$data <- data_ %>%
   #   dplyr::filter(.data$distance == min(data_$distance))
