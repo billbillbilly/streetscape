@@ -263,7 +263,11 @@ g_seg <- function(url) {
   options(timeout=9999)
   temp_file <- tempfile(fileext = ".jpg")
   #writeBin(url, temp_file)
-  download.file(url, temp_file, quiet = TRUE)
+  mode <- 'w'
+  if (isTRUE(Sys.info()[1]=="Windows") == TRUE){
+    mode <- 'wb'
+  }
+  download.file(url, temp_file, method='auto', quiet = TRUE, mode = mode)
   # read and segment the image
   img <- OpenImageR::readImage(temp_file)
   init <- SuperpixelImageSegmentation::Image_Segmentation$new()

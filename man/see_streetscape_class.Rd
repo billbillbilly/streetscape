@@ -13,7 +13,7 @@ A function to call out help page of \code{StreetscapeDataFrame}
 see_streetscape_class
 }
 \note{
-User can also directly call /code{?StreetscapeDataFrame}
+User can also directly use ?StreetscapeDataFrame
 }
 \examples{
 see_streetscape_class()
