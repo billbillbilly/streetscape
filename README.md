@@ -17,7 +17,7 @@ street views for various research purposes.
 
 ``` r
 # install the package (develop version) from GitHub
-devtools::install_github("land-info-lab/streetview", dependencies=TRUE)
+devtools::install_github("land-info-lab/streetscape", dependencies=TRUE)
 ```
 
 # Usage
@@ -25,7 +25,7 @@ devtools::install_github("land-info-lab/streetview", dependencies=TRUE)
 ## Get your Mapillary API key/token
 The foundation of this package is searching and downloading street view meta data 
 supported by the Mapillary API. Before using the functions in this package, you can 
-![apply for a key/token](https://www.mapillary.com/developer/api-documentation) 
+[apply for a key/token](https://www.mapillary.com/developer/api-documentation) 
 so that you can access the Mapillary data. 
 
 ## Get metadata of street view image from Mapillary 
@@ -142,7 +142,7 @@ choices <- list(c('Unpleasant','Less pleasant', 'Pleasant', 'More pleasant'),
 header <- "Please review the following picture(s):"
 streetscape::strview2rate(data, header, questions, choices, file = 'folder/filename')
 ```
-<img src="/images/survey.png" width="500" />
+<img src="/images/pwsurvey.png" width="500" />
 
 To generate pair-wised comparison survey:
 ```r
@@ -150,9 +150,9 @@ header <- "Please review the following picture(s):"
 questions <- c('which one is more beautiful?', 'which one is safer?')
 streetscape::strview2pwc(data, k=1, header, questions, file = 'folder/filename')
 ```
-<img src="/images/pwsurvey.png" width="500" />
+<img src="/images/survey.png" width="500" />
 
-(![More instruction of importing text files into Qualtrics](https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/))
+([More instruction of importing text files into Qualtrics](https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/))
 
 ## Note
 Some functions in the package employ multi-core processing to accelerate computation whereas it is not 
@@ -161,7 +161,7 @@ available on Windows operation system.
 ## Acknowledge 
 Thanks for the work of calcualting GVI in R done by Sachit Mahajan. (2023). greenR: An Open-Source Framework for Quantifying Urban Greenness. https://doi.org/10.13140/RG.2.2.36266.18888/1
 
-Thank d-vanos for ![importing text files into Qualtrics](https://github.com/d-vanos/Qualtrics-Text-Files/tree/main)
+Thank d-vanos for [importing text files into Qualtrics](https://github.com/d-vanos/Qualtrics-Text-Files/tree/main)
 
 ## Issues and bugs
 If you discover a bug not associated with connection to the API that is
