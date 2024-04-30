@@ -1,3 +1,4 @@
+source("utils.R")
 testthat::test_that("runs correctly", {
   #Load in data
   data('scdataframe')
