@@ -80,7 +80,7 @@ data <- streetscape::strview_searchByGeo(bbox = bbox,
                                          is_pano = TRUE)
 ```
 
-There more fields you can have when downloading data by specifying `fields`:
+There are more fields you can have when downloading data by specifying `fields`:
 ```r
 data <- streetscape::strview_searchByGeo(x = -83.741289,
                                          y = 42.270146,

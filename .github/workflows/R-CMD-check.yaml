@@ -58,11 +58,11 @@ jobs:
 
           path_to_python <- reticulate::virtualenv_create(
             envname = "r-mvt",
-            python = reticulate::virtualenv_python("r-mvt"),
+            python = python = Sys.which("python"),
             python_version = as.character(reticulate::py_config()['version']),
           )
 
-          writeLines(sprintf("RETICULATE_PYTHON=%s", reticulate::virtualenv_python("r-mvt")),
+          writeLines(sprintf("RETICULATE_PYTHON=%s", path_to_python),
                      Sys.getenv("GITHUB_ENV"))
 
       - uses: r-lib/actions/check-r-package@v2
