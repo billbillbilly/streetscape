@@ -58,7 +58,7 @@ jobs:
 
           path_to_python <- reticulate::virtualenv_create(
             envname = "r-mvt",
-            python = python = Sys.which("python"),
+            python = Sys.which("python"),
             python_version = as.character(reticulate::py_config()['version']),
           )
 
