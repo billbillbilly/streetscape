@@ -1,0 +1,45 @@
+Package: streetscape
+Type: Package
+Title: Collect And Investigate Street Views For Urban Science
+Version: 1.0.0
+Authors@R: c(person("Xiaohao", "Yang", role = c("aut", "cre", "cph"), email = "xiaohaoy@umich.edu"),
+           person("Derek", "Van Berkel", role = c("aut")),
+           person("Mark", "Lindquist", role = c("aut")))
+Description: A collection of functions to search and download street view imagery 
+             ('Mapilary' <https://www.mapillary.com/developer/api-documentation>) and 
+             to extract, quantify, and visualize visual features. Moreover, handdy functions 
+             are provided to generate Qualtrics survey in TXT format using 
+             the collection of street views for various research purposes. 
+License: GPL-3
+Depends: R (>= 4.1)
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Language: en_GB
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports: 
+    rlang,
+    methods,
+    dplyr,
+    sf,
+    sp,
+    httr,
+    reticulate,
+    osmdata,
+    quickPWCR,
+    mapview,
+    SuperpixelImageSegmentation,
+    OpenImageR,
+    pbmcapply,
+    parallel
+Config/reticulate:
+  list(
+    packages = list(
+      list(package = "mapbox_vector_tile", pip = TRUE)
+    )
+  )
