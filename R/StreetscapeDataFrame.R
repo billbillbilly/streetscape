@@ -331,6 +331,7 @@ StreetscapeDataFrame <- setRefClass(
       }
       # read dataframe as a list
       data_list <- split(.self$data,seq(nrow(.self$data)))
+      num_workers <- set_workers()
       # download
       pbmcapply::pbmclapply(
         1:length(data_list),
@@ -353,7 +354,7 @@ StreetscapeDataFrame <- setRefClass(
             }
           }
         },
-        mc.cores = parallel::detectCores()-1
+        mc.cores = num_workers
       )
       return('Completed')
     }

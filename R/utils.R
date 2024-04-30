@@ -346,11 +346,10 @@ make_questions <- function(questions, choices, id, binary){
   return(out)
 }
 
-#' @importFrom pbmcapply pbmclapply
-#' @importFrom parallel detectCores
 #' @noMd
-img_survey <- function(data, header, questions, choices){
-  num_workers <- parallel::detectCores() - 1
+set_workers <- function() {
+  num_workers <- as.numeric(parallelly::availableCores()-1)
+  num_workers <- Sys.getenv("USE_CORES", num_workers)
   chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
   if (nzchar(chk) && chk == "TRUE") {
     num_workers <- 1
@@ -358,6 +357,14 @@ img_survey <- function(data, header, questions, choices){
   if (isTRUE(Sys.info()[1]=="Windows") == TRUE){
     num_workers <- 1
   }
+  return(num_workers)
+}
+
+#' @importFrom pbmcapply pbmclapply
+#' @importFrom parallelly availableCores
+#' @noMd
+img_survey <- function(data, header, questions, choices){
+  num_workers <- set_workers()
   header_label <- "[[Question:DB]]"
   body <- pbmcapply::pbmclapply(
     1:nrow(data$data),
@@ -391,14 +398,7 @@ img_survey <- function(data, header, questions, choices){
 
 #' @noMd
 img_survey_pwc <- function(data, header, questions){
-  num_workers <- parallel::detectCores() - 1
-  chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
-  if (nzchar(chk) && chk == "TRUE") {
-    num_workers <- 1
-  }
-  if (isTRUE(Sys.info()[1]=="Windows") == TRUE){
-    num_workers <- 1
-  }
+  num_workers <- set_workers()
   choices <- c('left', 'right')
   header_label <- "[[Question:DB]]"
   body <- pbmcapply::pbmclapply(
