@@ -1,5 +1,6 @@
 mapbox_vector_tile <- NULL
 .onLoad <- function(libname, pkgname) {
+  reticulate::configure_environment(pkgname)
   if ("r-mvt" %in% reticulate::virtualenv_list()) {
     if (Sys.getenv("RETICULATE_PYTHON") != reticulate::virtualenv_python("r-mvt")) {
       Sys.setenv(RETICULATE_PYTHON = reticulate::virtualenv_python("r-mvt"))

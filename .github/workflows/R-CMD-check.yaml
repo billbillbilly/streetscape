@@ -60,6 +60,7 @@ jobs:
             envname = "r-mvt",
             python = Sys.which("python"),
             python_version = as.character(reticulate::py_config()['version']),
+            packages = c("mapbox_vector_tile")
           )
 
           writeLines(sprintf("RETICULATE_PYTHON=%s", path_to_python),
