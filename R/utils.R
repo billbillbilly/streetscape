@@ -150,9 +150,10 @@ install_mvt <- function(envname = "r-mvt", method = "auto") {
 #' @importFrom reticulate import py
 #' @importFrom sf st_polygon st_sf st_set_crs st_sfc
 #' @examples
+#' \donttest{
 #' detection <- readLines(system.file('detection.txt', package = 'streetscape'))
 #' streetscape::decode_detections(detection)
-#'
+#' }
 #' @export
 decode_detections <- function(detections_string) {
   if (reticulate::py_module_available("mapbox_vector_tile")){
@@ -354,6 +355,9 @@ img_survey <- function(data, header, questions, choices){
   if (nzchar(chk) && chk == "TRUE") {
     num_workers <- 1
   }
+  if (isTRUE(Sys.info()[1]=="Windows") == TRUE){
+    num_workers <- 1
+  }
   header_label <- "[[Question:DB]]"
   body <- pbmcapply::pbmclapply(
     1:nrow(data$data),
@@ -390,6 +394,9 @@ img_survey_pwc <- function(data, header, questions){
   num_workers <- parallel::detectCores() - 1
   chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
   if (nzchar(chk) && chk == "TRUE") {
+    num_workers <- 1
+  }
+  if (isTRUE(Sys.info()[1]=="Windows") == TRUE){
     num_workers <- 1
   }
   choices <- c('left', 'right')

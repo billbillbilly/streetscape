@@ -20,6 +20,14 @@ street views for various research purposes.
 devtools::install_github("land-info-lab/streetscape", dependencies=TRUE)
 ```
 
+To use the functions for extracting semantic segmentation, 
+you need to install the python module `mapbox_vector_tile`.
+Then restart the R session:
+
+```r
+streetscape::install_mvt()
+```
+
 # Usage
 
 ## Get your Mapillary API key/token

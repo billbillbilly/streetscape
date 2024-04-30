@@ -17,7 +17,8 @@ sf polygon
 convert Mapillary object detection into sf polygons
 }
 \examples{
+\donttest{
 detection <- readLines(system.file('detection.txt', package = 'streetscape'))
 streetscape::decode_detections(detection)
-
+}
 }
