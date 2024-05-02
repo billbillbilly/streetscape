@@ -238,7 +238,7 @@ validate_fields <- function(input_fields) {
 
 #' @noMd
 validate_filters <- function(input_filters) {
-  valid_filters <- as.vector(available_filter()[1])
+  valid_filters <- as.vector(available_filter()[,1])
   invalid_filters <- base::setdiff(names(input_filters),
                                    valid_filters)
   if (length(invalid_filters) > 0) {

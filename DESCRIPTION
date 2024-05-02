@@ -36,7 +36,6 @@ Imports:
     SuperpixelImageSegmentation,
     OpenImageR,
     pbmcapply,
-    parallel,
     parallelly
 Config/reticulate:
   list(
