@@ -11,9 +11,9 @@ available_field()
 available_filter()
 }
 \value{
-A data frame with field names and their descriptions.
+dataframe, including field names and their descriptions.
 
-A data frame with filter names and their descriptions.
+dataframe, including filter names and their descriptions.
 }
 \description{
 available_field provides a list of available fields.

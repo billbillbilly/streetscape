@@ -97,7 +97,7 @@ If there is no street view images within the search area,
 the function only returns an integer 0.
 }
 \examples{
-\dontrun{
+\donttest{
 bbox <- c(-83.751812,42.272984,-83.741255,42.279716)
 data <- streetscape::strview_searchByGeo(bbox = bbox,
                                          epsg = 2253,
@@ -111,14 +111,14 @@ data <- streetscape::strview_searchByGeo(x = -83.741289,
                                          is_pano = TRUE)
 }
 
-\dontrun{
+\donttest{
 data <- streetscape::strview_search_nnb(
         x = -83.743460634278,
         y = 42.277848830294,
         epsg = 2253,
         token = 'token')
 }
-\dontrun{
+\donttest{
 bbox <- c(-83.752041,42.274896,-83.740711,42.281945)
 data <- streetscape::strview_search_osm(
         bbox = bbox,
@@ -126,7 +126,7 @@ data <- streetscape::strview_search_osm(
         token = 'token',
         size = 100)
 }
-\dontrun{
+\donttest{
 x <- c(-83.752041, -83.740711)
 y <- c(42.274896, 42.281945)
 viewpoints <- cbind(x, y)

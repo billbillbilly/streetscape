@@ -6,6 +6,9 @@
 \usage{
 see_streetscape_class()
 }
+\value{
+No return value, called for side effects
+}
 \description{
 A function to call out help page of \code{StreetscapeDataFrame}
 }

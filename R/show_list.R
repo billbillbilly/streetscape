@@ -4,7 +4,7 @@
 #' @title available-field-and-filter
 
 #' @description available_field provides a list of available fields.
-#' @return A data frame with field names and their descriptions.
+#' @return dataframe, including field names and their descriptions.
 #' @note More information about fields and filter
 #' at \url{https://www.mapillary.com/developer/api-documentation}
 #' @export
@@ -56,7 +56,7 @@ available_field <- function(){
 
 
 #' @description available_filter provides a list of available filters.
-#' @return A data frame with filter names and their descriptions.
+#' @return dataframe, including filter names and their descriptions.
 #' @export
 #' @rdname available-field-and-filter
 available_filter <- function(){

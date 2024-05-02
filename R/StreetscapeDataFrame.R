@@ -82,7 +82,7 @@
 #'   or segmentation masks or both}
 #'   \item{\code{items}}{character or vector, specifying what to download:
 #'   'image' - 'original street view image;
-#'   'mask' - semantic segmentation (sf objects in .RData format)"}
+#'   'mask' - semantic segmentation (sf objects in .geojson format)"}
 #'   }
 #'  }
 #' }
@@ -333,28 +333,32 @@ StreetscapeDataFrame <- setRefClass(
       data_list <- split(.self$data,seq(nrow(.self$data)))
       num_workers <- set_workers()
       # download
-      pbmcapply::pbmclapply(
-        1:length(data_list),
-        function(x){
-          this_row <- data_list[[x]]
-          if (file.exists(img_dir)) {
-            # download images
-            try(download.file(
-              this_row$thumb_original_url,
-              paste0(img_dir, "/", this_row$id, "_img.png"),
-              method = 'auto',
-              quiet = TRUE)
-            )
-          }
-          if (file.exists(mask_dir)) {
-            # download masks
-            if (!inherits(this_row$detections, "logical")) {
-              m <- .self$get_mask(x)
-              save(m, file=paste0(mask_dir, "/", this_row$id, "_mask.RData"))
+      suppressWarnings(
+        pbmcapply::pbmclapply(
+          1:length(data_list),
+          function(x){
+            this_row <- data_list[[x]]
+            if ("image" %in% items) {
+              # download images
+              try(download.file(
+                this_row$thumb_original_url,
+                paste0(img_dir, "/", this_row$id, "_img.png"),
+                method = 'auto',
+                quiet = TRUE)
+              )
             }
-          }
-        },
-        mc.cores = num_workers
+            if ("mask" %in% items) {
+              # download masks
+              m <- .self$get_mask(x)
+              if (inherits(m, "sf")) {
+                sf::write_sf(m, dsn=paste0(mask_dir, "/", this_row$id, "_mask.geojson"))
+                #save(m, file=paste0(mask_dir, "/", this_row$id, "_mask.RData"))
+              }
+            }
+            return(TRUE)
+          },
+          mc.cores = num_workers
+        )
       )
       return('Completed')
     }

@@ -113,7 +113,7 @@ for the 'meta' map. The fields of 'id', 'is_pano',
 or segmentation masks or both}
 \item{\code{items}}{character or vector, specifying what to download:
 'image' - 'original street view image;
-'mask' - semantic segmentation (sf objects in .RData format)"}
+'mask' - semantic segmentation (sf objects in .geojson format)"}
 }
 }
 }

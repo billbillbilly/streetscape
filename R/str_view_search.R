@@ -35,7 +35,7 @@
 #' @importFrom mapview mapview
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' bbox <- c(-83.751812,42.272984,-83.741255,42.279716)
 #' data <- streetscape::strview_searchByGeo(bbox = bbox,
 #'                                          epsg = 2253,
@@ -173,7 +173,7 @@ strview_searchByGeo <- function(x,y,r,
 #' @importFrom sf st_crs
 #' @importFrom dplyr filter
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data <- streetscape::strview_search_nnb(
 #'         x = -83.743460634278,
 #'         y = 42.277848830294,
@@ -216,7 +216,8 @@ strview_search_nnb <- function(x,
   df$data$distance <- sqrt((df$data$coordinates.x-xy[1])^2 + (df$data$coordinates.y-xy[2])^2)
   data_ <- df$data
   data_ <- data_[order(data_$distance, decreasing = FALSE), ]
-  df$data <- data_[1,][, -c('distance')]
+  data_ <- data_[,!(names(data_) %in% c('distance'))]
+  df$data <- data_[1,]
   # data_ <- df$data
   # df$data <- data_ %>%
   #   dplyr::filter(.data$distance == min(data_$distance))
@@ -240,7 +241,7 @@ strview_search_nnb <- function(x,
 #' of street views from all sampled points along the OSM lines within
 #' the specified bounding box.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' bbox <- c(-83.752041,42.274896,-83.740711,42.281945)
 #' data <- streetscape::strview_search_osm(
 #'         bbox = bbox,
@@ -334,7 +335,7 @@ strview_search_osm <- function(bbox,
 #' @return For strview_search_multi(), a StreetscapeDataFrame that combines the information
 #' of street views based on the coordinates of multiple spatial points
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' x <- c(-83.752041, -83.740711)
 #' y <- c(42.274896, 42.281945)
 #' viewpoints <- cbind(x, y)
