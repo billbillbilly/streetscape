@@ -1,6 +1,9 @@
 <!-- badges: start -->
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 [![R-CMD-check](https://github.com/land-info-lab/streetscape/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/land-info-lab/streetscape/actions/workflows/R-CMD-check.yaml)
+![CRAN](https://www.r-pkg.org/badges/version/streetscape)
+![monthly](https://cranlogs.r-pkg.org/badges/streetscape)
+![total](https://cranlogs.r-pkg.org/badges/grand-total/streetscape)
 <!-- badges: end -->
 
 <p align="left">
