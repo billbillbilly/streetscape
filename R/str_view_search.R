@@ -64,7 +64,7 @@ strview_searchByGeo <- function(x,y,r,
   if (missing(epsg)) {
     stop("epsg is missing. Please set epsg code")
   }
-  if (length(fields) != 0 && inherits(fields,"character")) {
+  if (length(fields) != 0 && !inherits(fields,"character")) {
     stop("fields has to be a vector of characters")
   }
   if (length(fields) > 0) {
@@ -282,7 +282,7 @@ strview_search_osm <- function(bbox,
     lines <- osm_data$osm_lines$geometry
     lines <- sf::st_union(lines)
     suppressMessages(
-      samples <- sf::st_sample(lines, size = 20, type = "regular")
+      samples <- sf::st_sample(lines, size = size, type = "regular")
     )
     coords <- sf::st_coordinates(samples)
     # lines <- sf::st_transform(lines, epsg)

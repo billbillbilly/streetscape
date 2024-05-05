@@ -227,7 +227,7 @@ read_segment_perc <- function(segment_perc) {
 
 #' @noMd
 validate_fields <- function(input_fields) {
-  valid_fields <- as.vector(available_field()[1])
+  valid_fields <- as.vector(available_field()[[1]])
   invalid_fields <- base::setdiff(input_fields,
                                   valid_fields)
   if (length(invalid_fields) > 0) {
