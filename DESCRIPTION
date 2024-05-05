@@ -1,7 +1,7 @@
 Package: streetscape
 Type: Package
 Title: Collect And Investigate Street Views For Urban Science
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(person("Xiaohao", "Yang", role = c("aut", "cre", "cph"), email = "xiaohaoy@umich.edu"),
            person("Derek", "Van Berkel", role = c("aut")),
            person("Mark", "Lindquist", role = c("aut")))

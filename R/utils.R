@@ -4,7 +4,11 @@
 
 #' @noMd
 longlat2proj <- function(x, y, proj, longlat) {
-  coor <- data.frame(lon=x, lat=y)
+  #coor <- data.frame(lon=as.numeric(x), lat=as.numeric(y))
+  if (is.null(x) || is.null(y)) {
+    return(c(NULL, NULL))
+  }
+  coor <- matrix(c(x,y), 1)
   pt <- sp::SpatialPoints(coor, proj4string=longlat)
   pt <- sp::spTransform(pt, proj)
   return(c(pt@coords[1,1], pt@coords[1,2]))

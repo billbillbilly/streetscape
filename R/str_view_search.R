@@ -100,42 +100,51 @@ strview_searchByGeo <- function(x,y,r,
   if (inherits(response, "numeric")) {
     return(0)
   }
-  dfs <- lapply(response$data, function(x) {
-    data.frame(
-      id = return_field(x, 'id'),
-      username = ifelse('creator' %in% names(x),
-                        return_field(x$creator, 'username'), NA),
-      creator_id = ifelse('creator' %in% names(x),
-                          return_field(x$creator, 'id'), NA),
-      make = return_field(x, 'make'),
-      model = return_field(x, 'model'),
-      captured_at = return_field(x, 'captured_at'),
-      is_pano = x$is_pano,
-      compass_angle = return_field(x, 'compass_angle'),
-      computed_compass_angle = return_field(x, 'computed_compass_angle'),
-      thumb_256_url = x$thumb_256_url,
-      thumb_1024_url = return_field(x, 'thumb_1024_url'),
-      thumb_2048_url = return_field(x, 'thumb_2048_url'),
-      thumb_original_url = return_field(x, 'thumb_original_url'),
-      height = x$height,
-      width = x$width,
-      lon = x$computed_geometry$coordinates[[1]],
-      lat = x$computed_geometry$coordinates[[2]],
-      coordinates.x = longlat2proj(x$computed_geometry$coordinates[[1]],
-                                   x$computed_geometry$coordinates[[2]],
-                                   proj,
-                                   longlat)[1],
-      coordinates.y = longlat2proj(x$computed_geometry$coordinates[[1]],
-                                   x$computed_geometry$coordinates[[2]],
-                                   proj,
-                                   longlat)[2],
-      altitude = return_field(x, 'altitude'),
-      computed_altitude = x$computed_altitude,
-      detections = I(ifelse('detections' %in% names(x),
-                            return_detections(x$detections$data), NA))
-    )
-  })
+  dfs <- 0
+  tryCatch(
+    dfs <- lapply(response$data, function(x) {
+      xy <- longlat2proj(x$computed_geometry$coordinates[[1]],
+                         x$computed_geometry$coordinates[[2]],
+                         proj,
+                         longlat)
+      data.frame(
+        id = return_field(x, 'id'),
+        username = ifelse('creator' %in% names(x),
+                          return_field(x$creator, 'username'), NA),
+        creator_id = ifelse('creator' %in% names(x),
+                            return_field(x$creator, 'id'), NA),
+        make = return_field(x, 'make'),
+        model = return_field(x, 'model'),
+        captured_at = return_field(x, 'captured_at'),
+        is_pano = x$is_pano,
+        compass_angle = return_field(x, 'compass_angle'),
+        computed_compass_angle = return_field(x, 'computed_compass_angle'),
+        thumb_256_url = x$thumb_256_url,
+        thumb_1024_url = return_field(x, 'thumb_1024_url'),
+        thumb_2048_url = return_field(x, 'thumb_2048_url'),
+        thumb_original_url = return_field(x, 'thumb_original_url'),
+        height = x$height,
+        width = x$width,
+        lon = x$computed_geometry$coordinates[[1]],
+        lat = x$computed_geometry$coordinates[[2]],
+        coordinates.x = xy[1],
+        coordinates.y = xy[2],
+        altitude = return_field(x, 'altitude'),
+        computed_altitude = x$computed_altitude,
+        detections = I(ifelse('detections' %in% names(x),
+                              return_detections(x$detections$data), NA))
+      )
+    }),
+    error = function(e){e}
+  )
+  if (inherits(dfs, "numeric")) {
+    return(0)
+  }
   combined_df <- do.call(rbind, dfs)
+  combined_df <- combined_df[!combined_df$coordinates.x == "null", ]
+  if (nrow(combined_df) == 0) {
+    return(0)
+  }
   rownames(combined_df) <- seq(nrow(combined_df))
   if ('creator' %in% fields) {
     fields <- c('username', 'creator_id', fields)
