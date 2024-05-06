@@ -34,7 +34,7 @@ a new column 'segmentation' will be added.}
 \item{\code{get_mask(index)}}{Convert the semantic segmentation of a street view image
 from the StreetscapeDataFrame into sf polygons}
 
-\item{\code{gvi()}}{Calculate green view index (GVI) for each collected image by
+\item{\code{gvi(level)}}{Calculate green view index (GVI) for each collected image by
 segmenting green pixels and quantifing the percentage in
 street view images. This method adds a new column of
 greeness percetage to the dataframe}
@@ -64,7 +64,19 @@ greeness percetage to the dataframe}
 \if{html}{\out{<a id="method-gvi"></a>}}
 \subsection{Method \code{gvi()}}{
 \subsection{Usage}{
-\code{scdataframe$gvi()}
+\code{scdataframe$gvi(level = 1)}
+}
+\subsection{Arguments}{
+\describe{
+\item{\code{level}}{numeric, indicating the resolution level of images
+for calculating the green view index.
+1 - the 256px wide thumbnail;
+2 - the 1024px wide thumbnail;
+3 - the 2048px wide thumbnail;
+4 - the original wide thumbnail.
+The default is level = 1
+}
+}
 }
 }
 \if{html}{\out{<hr>}}

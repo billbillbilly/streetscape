@@ -33,7 +33,19 @@
 #' \if{html}{\out{<a id="method-gvi"></a>}}
 #' \subsection{Method \code{gvi()}}{
 #'  \subsection{Usage}{
-#'  \code{scdataframe$gvi()}
+#'  \code{scdataframe$gvi(level = 1)}
+#'  }
+#'  \subsection{Arguments}{
+#'   \describe{
+#'   \item{\code{level}}{numeric, indicating the resolution level of images
+#'   for calculating the green view index.
+#'   1 - the 256px wide thumbnail;
+#'   2 - the 1024px wide thumbnail;
+#'   3 - the 2048px wide thumbnail;
+#'   4 - the original wide thumbnail.
+#'   The default is level = 1
+#'   }
+#'   }
 #'  }
 #' }
 #' \if{html}{\out{<hr>}}
@@ -230,8 +242,21 @@ StreetscapeDataFrame <- setRefClass(
             reticulate::py_run_string(cmd)
             # decode
             decode_geometry <- mvt$decode(reticulate::py$decoded_data)
-            coordinates <- decode_geometry[[1]]$features[[1]]$geometry$coordinates
+            #coordinates <- decode_geometry[[1]]$features[[1]]$geometry$coordinates
             extent <- decode_geometry[[1]]$extent
+            if (length(decode_geometry) == 0 || is.null(decode_geometry[[1]]$features)) {
+              next  # Skip if no features found
+            }
+
+            features <- decode_geometry[[1]]$features
+            if (length(features) == 0 || is.null(features[[1]]$geometry$coordinates)) {
+              next  # Skip if coordinates are missing
+            }
+
+            coordinates <- features[[1]]$geometry$coordinates
+            if (length(coordinates) == 0 || is.null(coordinates[[1]])) {
+              next  # Skip if first coordinate is missing
+            }
             coords <- coordinates[[1]]
             # Normalize and transform coordinates
             coords <- lapply(coords, function(coord) {
@@ -264,15 +289,20 @@ StreetscapeDataFrame <- setRefClass(
       .self$data <- cbind(.self$data, combined_df, segment_perc)
       #summary(.self$data )
     },
-    gvi = function() {
+    gvi = function(level) {
       "Calculate green view index (GVI) for each collected image by
       segmenting green pixels and quantifing the percentage in
       street view images. This method adds a new column of
       greeness percetage to the dataframe"
+      if (missing(level)) {
+        level <- 1
+      }
+      image_resolution <- c('thumb_256_url', 'thumb_1024_url',
+                            'thumb_2048_url', 'thumb_original_url')
       # initialize a gvi column
       .self$data$GVI <- 0
       for (i in 1:nrow(.self$data)) {
-        url <- .self$data[i, 'thumb_256_url']
+        url <- .self$data[i, image_resolution[level]]
         .self$data[i,'GVI'] <- img2gvi(url)
       }
     },
@@ -292,12 +322,17 @@ StreetscapeDataFrame <- setRefClass(
           1:length(code),
           function(x) {
             polygon <- decode_detections(code[[x]])
-            polygon <- sf::st_sf(
-              geometry = polygon,
-              label = names(code[x])
-            )
+            if (!inherits(polygon, 'numeric')) {
+              polygon <- sf::st_sf(
+                geometry = polygon,
+                label = names(code[x])
+              )
+            } else {
+              NA
+            }
           }
         )
+        polygons <- polygons[!is.na(polygons)]
       }
       polygons <- do.call(rbind, polygons)
       return(polygons)
