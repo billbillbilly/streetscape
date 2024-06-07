@@ -1,4 +1,4 @@
-#' @importFrom httr GET content
+#' @importFrom httr GET content status_code
 #' @importFrom sp SpatialPoints spTransform
 #' @importFrom dplyr %>%
 
@@ -260,6 +260,9 @@ img2gvi <- function(url) {
   #--------------------Segment street view-----------------------
   img_segmentation <- g_seg(url)
   #--------------------GreenView_Calculate-----------------------
+  if (inherits(img_segmentation, "numeric")) {
+    return(img_segmentation)
+  }
   return(gv_calc(img_segmentation))
 }
 
@@ -270,10 +273,17 @@ g_seg <- function(url) {
   on.exit(options(timeout = original_timeout), add = TRUE)
   options(timeout=9999)
   temp_file <- tempfile(fileext = ".jpg")
+
   #writeBin(url, temp_file)
-  mode <- 'w'
-  if (isTRUE(Sys.info()[1]=="Windows") == TRUE){
-    mode <- 'wb'
+  # mode <- 'w'
+  # if (isTRUE(Sys.info()[1]=="Windows") == TRUE){
+  #   mode <- 'wb'
+  # }
+
+  # check url
+  response <- httr::GET(url)
+  if (httr::status_code(response) != 200) {
+    return(0)
   }
   download.file(url, temp_file, method='auto', quiet = TRUE, mode = mode)
   # read and segment the image
