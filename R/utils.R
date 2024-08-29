@@ -285,7 +285,11 @@ g_seg <- function(url) {
   if (httr::status_code(response) != 200) {
     return(0)
   }
-  download.file(url, temp_file, method='auto', quiet = TRUE, mode = mode)
+  if (isTRUE(Sys.info()[1]=="Windows") == TRUE){
+    download.file(url, temp_file, method='auto', quiet = TRUE, mode = 'wb')
+  } else {
+    download.file(url, temp_file, method='auto', quiet = TRUE)
+  }
   # read and segment the image
   img <- OpenImageR::readImage(temp_file)
   init <- SuperpixelImageSegmentation::Image_Segmentation$new()

@@ -82,12 +82,12 @@ mask <- streetviewdata$get_mask(1)
 ## 4 Visualize the data in maps
 
 ```{r eval = FALSE}
-map1 <- streetviewdata$mapPreview('meta')
+map1 <- data$mapPreview('meta')
 print(map1)
 # assume that one has run data$gvi() and data$decodeDetection()
-map2 <- streetviewdata$mapPreview('seg')
+map2 <- data$mapPreview('seg')
 print(map2)
-map3 <- streetviewdata$mapPreview('gvi')
+map3 <- data$mapPreview('gvi')
 print(map3)
 ```
 
