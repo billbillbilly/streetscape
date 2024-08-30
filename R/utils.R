@@ -61,7 +61,6 @@ get_filters <- function(...) {
 #' @noMd
 create_check_token <- function(api_token) {
   if (api_token == "") {
-    print(getwd())
     if (isFALSE(file.exists("streetscape_token.sysdata"))) {
       cli::cli_ul(
         "Create a Mapillary API Token at https://www.mapillary.com/developer/api-documentation")
