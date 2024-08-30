@@ -101,13 +101,13 @@ the function only returns an integer 0.
 bbox <- c(-83.751812,42.272984,-83.741255,42.279716)
 data <- streetscape::strview_searchByGeo(bbox = bbox,
                                          epsg = 2253,
-                                         token = "token",
+                                         token = "",
                                          is_pano = TRUE)
 data <- streetscape::strview_searchByGeo(x = -83.741289,
                                          y = 42.270146,
                                          r = 100,
                                          epsg = 2253,
-                                         token = "token",
+                                         token = "",
                                          is_pano = TRUE)
 }
 
@@ -116,14 +116,14 @@ data <- streetscape::strview_search_nnb(
         x = -83.743460634278,
         y = 42.277848830294,
         epsg = 2253,
-        token = 'token')
+        token = '')
 }
 \donttest{
 bbox <- c(-83.752041,42.274896,-83.740711,42.281945)
 data <- streetscape::strview_search_osm(
         bbox = bbox,
         epsg = 2253,
-        token = 'token',
+        token = '',
         size = 100)
 }
 \donttest{
@@ -133,7 +133,7 @@ viewpoints <- cbind(x, y)
 data <- streetscape::strview_search_multi(
         viewpoints = viewpoints,
         epsg = 2253,
-        token = 'token')
+        token = '')
 }
 }
 \seealso{

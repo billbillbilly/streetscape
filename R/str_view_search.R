@@ -39,13 +39,13 @@
 #' bbox <- c(-83.751812,42.272984,-83.741255,42.279716)
 #' data <- streetscape::strview_searchByGeo(bbox = bbox,
 #'                                          epsg = 2253,
-#'                                          token = "token",
+#'                                          token = "",
 #'                                          is_pano = TRUE)
 #' data <- streetscape::strview_searchByGeo(x = -83.741289,
 #'                                          y = 42.270146,
 #'                                          r = 100,
 #'                                          epsg = 2253,
-#'                                          token = "token",
+#'                                          token = "",
 #'                                          is_pano = TRUE)
 #' }
 #'
@@ -192,7 +192,7 @@ strview_searchByGeo <- function(x,y,r,
 #'         x = -83.743460634278,
 #'         y = 42.277848830294,
 #'         epsg = 2253,
-#'         token = 'token')
+#'         token = '')
 #' }
 #' @export
 #' @rdname strview_search
@@ -260,7 +260,7 @@ strview_search_nnb <- function(x,
 #' data <- streetscape::strview_search_osm(
 #'         bbox = bbox,
 #'         epsg = 2253,
-#'         token = 'token',
+#'         token = '',
 #'         size = 100)
 #' }
 #' @importFrom sf st_transform as_Spatial
@@ -356,7 +356,7 @@ strview_search_osm <- function(bbox,
 #' data <- streetscape::strview_search_multi(
 #'         viewpoints = viewpoints,
 #'         epsg = 2253,
-#'         token = 'token')
+#'         token = '')
 #' }
 #' @export
 #' @rdname strview_search
