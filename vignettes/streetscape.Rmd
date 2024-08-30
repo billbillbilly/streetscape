@@ -72,6 +72,7 @@ data$gvi()
 ## 3 Extract semantic segmentation 
 
 ```{r eval = FALSE}
+streetviewdata <- streetscape::scdataframe
 # calculate the percentage of each segmentation
 data$decodeDetection()
 data$data$segmentation

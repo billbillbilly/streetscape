@@ -114,6 +114,7 @@ is designed for calculating the percentage of visible greenness in a scene using
 can be collected by the URL link in the meta information.
 
 Let's try example data in the package
+Here we can not use the example data to access GVI calculation because the URLs for the street views can expire at some point after download the metadata
 ```r
 streetviewdata <- streetscape::scdataframe
 
@@ -125,8 +126,11 @@ streetviewdata$data$segmentation
 mask <- streetviewdata$get_mask(1)
 
 # Calculate the Green View Index
-streetviewdata$gvi()
-streetviewdata$GVI
+data <- streetscape::strview_searchByGeo(bbox = bbox,
+                                         epsg = 2253,
+                                         token = '')
+data$gvi()
+data$GVI
 ```
 
 ## Map view
@@ -139,7 +143,7 @@ print(map1)
 # assume that one has run data$gvi() and data$decodeDetection()
 map2 <- streetviewdata$mapPreview('seg')
 print(map2)
-map3 <- streetviewdata$mapPreview('gvi')
+map3 <- data$mapPreview('gvi')
 print(map3)
 ```
 
@@ -157,7 +161,7 @@ questions <- c('1. To what extent you feel pleasant if you were in this environm
 choices <- list(c('Unpleasant','Less pleasant', 'Pleasant', 'More pleasant'), 
                 c('Unsafe', 'Less safe','Safe','Safer'))
 header <- "Please review the following picture(s):"
-streetscape::strview2rate(streetviewdata, header, questions, choices, file = 'folder/filename')
+streetscape::strview2rate(data, header, questions, choices, file = 'folder/filename')
 ```
 <img src="/images/pwsurvey.png" width="500" />
 
@@ -165,7 +169,7 @@ To generate pair-wised comparison survey:
 ```r
 header <- "Please review the following picture(s):"
 questions <- c('which one is more beautiful?', 'which one is safer?')
-streetscape::strview2pwc(streetviewdata, k=1, header, questions, file = 'folder/filename')
+streetscape::strview2pwc(data, k=1, header, questions, file = 'folder/filename')
 ```
 <img src="/images/survey.png" width="500" />
 
