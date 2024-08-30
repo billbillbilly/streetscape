@@ -1,7 +1,7 @@
 Package: streetscape
 Type: Package
 Title: Collect And Investigate Street Views For Urban Science
-Version: 1.0.2
+Version: 1.0.3
 Authors@R: c(person("Xiaohao", "Yang", role = c("aut", "cre", "cph"), email = "xiaohaoy@umich.edu"),
            person("Derek", "Van Berkel", role = c("aut")),
            person("Mark", "Lindquist", role = c("aut")))
@@ -24,6 +24,7 @@ Suggests:
 VignetteBuilder: knitr
 Imports: 
     rlang,
+    cli,
     methods,
     dplyr,
     sf,

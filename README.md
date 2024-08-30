@@ -48,33 +48,37 @@ streetscape::available_field()
 ```
 
 You can use `strview_search` functions to search and download meta information 
-via the Mapillary API by using a buffer, a bbox, a spatial point, or multiple spatial points 
+via the Mapillary API by using a buffer, a bbox, a spatial point, or multiple spatial points.
+
+The `token` is optional because the functions can allow you to specify it later. 
+If you don't have a token. No worries. The functions can direct you to the website where you can 
+get a new token
 ```r
 # 1 search data using a buffer
-data <- streetscape::strview_searchByGeo(x = -83.741289,
-                                         y = 42.270146,
+data <- streetscape::strview_searchByGeo(x = -83.743460634278,
+                                         y = 42.277848830294,
                                          r = 100,
                                          epsg = 2253,
-                                         token = "token")
+                                         token = '')
 # 2 search data using a bounding box
 bbox <- c(-83.751812,42.272984,-83.741255,42.279716)
 data <- streetscape::strview_searchByGeo(bbox = bbox,
                                          epsg = 2253,
-                                         token = "token")
+                                         token = '')
                                          
 # 3 search the nearest data given coordinates in degree (within a 10m buffer)                                   
 data <- streetscape::strview_search_nnb(
   x = -83.743460634278,
   y = 42.277848830294,
   epsg = 2253,
-  token = 'token')
+  token = '')
   
 # 4 Sample data points with a boox along the OpenStreetMap roads
 bbox <- c(-83.752041,42.274896,-83.740711,42.281945)
 data <- streetscape::strview_search_osm(
         bbox = bbox,
         epsg = 2253,
-        token = 'token',
+        token = '',
         size = 100)
 ```
 
@@ -87,18 +91,18 @@ streetscape::available_filter()
 # only search for 360-degree street views
 data <- streetscape::strview_searchByGeo(bbox = bbox,
                                          epsg = 2253,
-                                         token = "token",
+                                         token = '',
                                          is_pano = TRUE)
 ```
 
 There are more fields you can have when downloading data by specifying `fields`:
 ```r
-data <- streetscape::strview_searchByGeo(x = -83.741289,
-                                         y = 42.270146,
+data <- streetscape::strview_searchByGeo(x = -83.743460634278,
+                                         y = 42.277848830294,
                                          r = 100,
                                          epsg = 2253,
                                          fileds = c('captured_at', 'compass_angle')
-                                         token = "token")
+                                         token = '')
 ```
 
 ## Extract visual feautures
@@ -109,18 +113,20 @@ convert it into polygons or images. Moreover, the function for computing green v
 is designed for calculating the percentage of visible greenness in a scene using images that 
 can be collected by the URL link in the meta information.
 
-Assume one already used `strview_search` functions to collect data
+Let's try example data in the package
 ```r
+streetviewdata <- streetscape::scdataframe
+
 # Calculate the percentage of each segmentation
-data$decodeDetection()
-data$data$segmentation
+streetviewdata$decodeDetection()
+streetviewdata$data$segmentation
 
 # extract the semantic segmentation of a street view
 mask <- streetviewdata$get_mask(1)
 
 # Calculate the Green View Index
-data$gvi()
-data$GVI
+streetviewdata$gvi()
+streetviewdata$GVI
 ```
 
 ## Map view
@@ -151,7 +157,7 @@ questions <- c('1. To what extent you feel pleasant if you were in this environm
 choices <- list(c('Unpleasant','Less pleasant', 'Pleasant', 'More pleasant'), 
                 c('Unsafe', 'Less safe','Safe','Safer'))
 header <- "Please review the following picture(s):"
-streetscape::strview2rate(data, header, questions, choices, file = 'folder/filename')
+streetscape::strview2rate(streetviewdata, header, questions, choices, file = 'folder/filename')
 ```
 <img src="/images/pwsurvey.png" width="500" />
 
@@ -159,7 +165,7 @@ To generate pair-wised comparison survey:
 ```r
 header <- "Please review the following picture(s):"
 questions <- c('which one is more beautiful?', 'which one is safer?')
-streetscape::strview2pwc(data, k=1, header, questions, file = 'folder/filename')
+streetscape::strview2pwc(streetviewdata, k=1, header, questions, file = 'folder/filename')
 ```
 <img src="/images/survey.png" width="500" />
 

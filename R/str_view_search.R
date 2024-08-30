@@ -58,9 +58,10 @@ strview_searchByGeo <- function(x,y,r,
                                 limit= 10,
                                 fields = c(),
                                 ...){
-  if (token == "") {
-    stop("access token is missing.")
-  }
+  # check token
+  token <- create_check_token(token)
+
+  # check arguments
   if (missing(epsg)) {
     stop("epsg is missing. Please set epsg code")
   }
@@ -79,6 +80,7 @@ strview_searchByGeo <- function(x,y,r,
   suppressWarnings(
     longlat <- sp::CRS("+proj=longlat")
   )
+
   # create bbox
   if (missing(bbox)) {
     if (missing(x) || missing(y) || missing(r)) {
