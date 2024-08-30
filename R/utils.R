@@ -96,6 +96,8 @@ create_check_token <- function(api_token) {
                            file = "streetscape_token.sysdata",
                            col.names = FALSE,
                            row.names = FALSE)
+      } else {
+        return(api_token)
       }
     }
 
