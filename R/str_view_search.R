@@ -61,7 +61,11 @@ strview_searchByGeo <- function(x,y,r,
                                 fields = c(),
                                 ...){
   # check token
-  token <- create_check_token(token)
+  if (token != "") {
+    token <- create_check_token(token, ifsave = FALSE)
+  } else if (token == "") {
+    token <- create_check_token(token, ifsave = TRUE)
+  }
 
   # check arguments
   if (missing(epsg)) {
@@ -278,6 +282,13 @@ strview_search_osm <- function(bbox,
                                token,
                                fields = c(),
                                size, ...){
+  # check token
+  if (token != "") {
+    token <- create_check_token(token, ifsave = FALSE)
+  } else if (token == "") {
+    token <- create_check_token(token, ifsave = TRUE)
+  }
+
   if (missing(bbox)) {
     stop("please specify bbox")
   }
@@ -321,7 +332,7 @@ strview_search_osm <- function(bbox,
       df <- strview_search_nnb(x=coords[i,1],
                                y=coords[i,2],
                                epsg,
-                               token,
+                               token = token,
                                fields,
                                ...)
       if (!inherits(df, "numeric")) {
@@ -375,6 +386,13 @@ strview_search_multi <- function(viewpoints,
                                  token,
                                  fields = c(),
                                  ...) {
+  # check token
+  if (token != "") {
+    token <- create_check_token(token, ifsave = FALSE)
+  } else if (token == "") {
+    token <- create_check_token(token, ifsave = TRUE)
+  }
+
   if (missing(viewpoints)) {
     stop("viewpoints is missing!")
   }
@@ -391,7 +409,7 @@ strview_search_multi <- function(viewpoints,
     df <- strview_search_nnb(x=viewpoints[i,1],
                              y=viewpoints[i,2],
                              epsg,
-                             token,
+                             token = token,
                              fields,
                              ...)
     if (!inherits(df, "numeric")) {

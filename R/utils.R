@@ -59,7 +59,7 @@ get_filters <- function(...) {
 }
 
 #' @noMd
-create_check_token <- function(api_token) {
+create_check_token <- function(api_token, ifsave = TRUE) {
   if (api_token == "") {
     if (isFALSE(file.exists("streetscape_token.sysdata"))) {
       cli::cli_ul(
@@ -87,20 +87,19 @@ create_check_token <- function(api_token) {
                 "Invalid API Token"))
   } else if (httr::GET(base_url)$status == 200) {
     if (isFALSE(file.exists("streetscape_token.sysdata"))) {
-      cli::cli_ul("You can save your Mapillary API Token so that you do not need to specify it every time call the function")
-      cli::cli_ul("Save your Mapillary API Token? y (yes) / n (no)")
-      ifsave <- readline()
-      if (ifsave == 'y' | ifsave == 'yes') {
-        # save token
-        utils::write.table(api_token,
-                           file = "streetscape_token.sysdata",
-                           col.names = FALSE,
-                           row.names = FALSE)
-      } else {
-        return(api_token)
+      # cli::cli_ul("Save your Mapillary API Token? y (yes) / n (no)")
+      if (ifsave) {
+        cli::cli_ul("You can save your Mapillary API Token so that you do not need to specify it every time call the function")
+        ifsave <- readline("Save your Mapillary API Token??? y (yes) / n (no): ")
+        if (ifsave == 'y' | ifsave == 'yes') {
+          # save token
+          utils::write.table(api_token,
+                             file = "streetscape_token.sysdata",
+                             col.names = FALSE,
+                             row.names = FALSE)
+        }
       }
     }
-
     return(api_token)
   }
 }

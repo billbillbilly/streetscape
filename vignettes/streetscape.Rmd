@@ -1,7 +1,7 @@
 ---
 title: "streetscape"
 author: "Xiaohao Yang"
-date: "4/30/2024"
+date: "08/30/2024"
 vignette: >
   %\VignetteIndexEntry{streetscape}
   %\VignetteEngine{knitr::rmarkdown}
@@ -75,7 +75,7 @@ data$gvi()
 streetviewdata <- streetscape::scdataframe
 # calculate the percentage of each segmentation
 data$decodeDetection()
-data$data$segmentation
+data$data$segmentation[[1]]
 # extract the semantic segmentation of a street view
 mask <- streetviewdata$get_mask(1)
 ```
