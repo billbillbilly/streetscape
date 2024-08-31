@@ -130,7 +130,7 @@ data <- streetscape::strview_searchByGeo(bbox = bbox,
                                          epsg = 2253,
                                          token = '')
 data$gvi()
-data$GVI
+data$data$GVI
 ```
 
 ## Map view

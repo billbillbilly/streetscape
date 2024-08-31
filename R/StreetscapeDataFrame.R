@@ -128,7 +128,7 @@ StreetscapeDataFrame <- setRefClass(
       if (length(base::setdiff('meta', maptype)) == 0) {
         # validate fields
         if (length(fields) > 0) {
-          validate_filters()
+          validate_filters(fields)
         }
         suppressWarnings(
           view1 <- sp::SpatialPointsDataFrame(
