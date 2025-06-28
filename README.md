@@ -1,6 +1,6 @@
 <!-- badges: start -->
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
-[![R-CMD-check](https://github.com/land-info-lab/streetscape/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/land-info-lab/streetscape/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/billbillbilly/streetscape/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/billbillbilly/streetscape/actions/workflows/R-CMD-check.yaml)
 ![CRAN](https://www.r-pkg.org/badges/version/streetscape)
 ![monthly](https://cranlogs.r-pkg.org/badges/streetscape)
 ![total](https://cranlogs.r-pkg.org/badges/grand-total/streetscape)
@@ -186,6 +186,6 @@ Thank d-vanos for [importing text files into Qualtrics](https://github.com/d-van
 
 ## Issues and bugs
 If you discover a bug not associated with connection to the API that is
-not already a [reported issue](https://github.com/land-info-lab/streetscape/issues), please [open
-a new issue](https://github.com/land-info-lab/streetscape/issues/new)
+not already a [reported issue](https://github.com/billbillbilly/streetscape/issues), please [open
+a new issue](https://github.com/billbillbilly/streetscape/issues/new)
 providing a reproducible example.
