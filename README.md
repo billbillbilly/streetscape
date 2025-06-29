@@ -12,19 +12,22 @@
 
 # Introduction
 A collection of functions to search and download street view imagery 
-and to extract, quantify, and visualize visual features. Moreover, handdy functions 
-are provided to generate Qualtrics survey in TXT format using the collection of 
+and to extract, quantify, and visualize visual features. Moreover, handy functions 
+are provided to generate a Qualtrics survey in TXT format using the collection of 
 street views for various research purposes.
 
 # Installation
 
 ``` r
+# install from CRAN
+install.packages('streetscape')
+
 # install the package (develop version) from GitHub
 devtools::install_github("land-info-lab/streetscape", dependencies=TRUE)
 ```
 
 To use the functions for extracting semantic segmentation, 
-you need to install the python module `mapbox_vector_tile`.
+you need to install the Python module `mapbox_vector_tile`.
 Then restart the R session:
 
 ```r
@@ -34,7 +37,7 @@ streetscape::install_mvt()
 # Usage
 
 ## Get your Mapillary API key/token
-The foundation of this package is searching and downloading street view meta data 
+The foundation of this package is searching and downloading street view metadata 
 supported by the Mapillary API. Before using the functions in this package, you can 
 [apply for a key/token](https://www.mapillary.com/developer/api-documentation) 
 so that you can access the Mapillary data. 
@@ -42,7 +45,7 @@ so that you can access the Mapillary data.
 ## Get metadata of street view image from Mapillary 
 With your Mapillary API key/token, you are able to download streetview meta data.
 
-`streetscape` provides helper function for checking all available meta information:
+`streetscape` provides a helper function for checking all available meta information:
 ```r
 streetscape::available_field()
 ```
@@ -66,7 +69,7 @@ data <- streetscape::strview_searchByGeo(bbox = bbox,
                                          epsg = 2253,
                                          token = '')
                                          
-# 3 search the nearest data given coordinates in degree (within a 10m buffer)                                   
+# 3 search the nearest data given coordinates in degrees (within a 10m buffer)                                   
 data <- streetscape::strview_search_nnb(
   x = -83.743460634278,
   y = 42.277848830294,
@@ -82,7 +85,7 @@ data <- streetscape::strview_search_osm(
         size = 100)
 ```
 
-You can also search data with some filters. Meanwhile, a helper function is 
+You can also search for data with some filters. Meanwhile, a helper function is 
 provided to check available filters.
 
 ```r
@@ -105,16 +108,16 @@ data <- streetscape::strview_searchByGeo(x = -83.743460634278,
                                          token = '')
 ```
 
-## Extract visual feautures
+## Extract visual features
 
 Semantic segmentation(mask) is included in Mapillary street view database. The functions of 
-this package can get the mask as default. Therefore, one can extract this information and 
-convert it into polygons or images. Moreover, the function for computing green view index (GVI) 
+this package can get the mask as the default. Therefore, one can extract this information and 
+convert it into polygons or images. Moreover, the function for computing the green view index (GVI) 
 is designed for calculating the percentage of visible greenness in a scene using images that 
 can be collected by the URL link in the meta information.
 
 Let's try example data in the package
-Here we can not use the example data to access GVI calculation because the URLs for the street views can expire at some point after download the metadata
+Here we can not use the example data to access GVI calculation because the URLs for the street views can expire at some point after downloading the metadata
 ```r
 streetviewdata <- streetscape::scdataframe
 
@@ -149,8 +152,8 @@ print(map3)
 
 ## Go for surveys
 Street view has been widely used in surveys to investigate the quality of urban landscape 
-and urban experiences such as safety perception and acoustic experience. You can 
-use two functions to construct surveys in txt format that can be imported in Qualtrics.
+and urban experiences, such as safety perception and acoustic experience. You can 
+use two functions to construct surveys in txt format that can be imported into Qualtrics.
 
 With `strview2rate`, one can put a set of street views and questions into a survey for 
 asking participants to rate or evaluate each image:
@@ -165,7 +168,7 @@ streetscape::strview2rate(data, header, questions, choices, file = 'folder/filen
 ```
 <img src="/images/pwsurvey.png" width="500" />
 
-To generate pair-wised comparison survey:
+To generate pair-wise comparison survey:
 ```r
 header <- "Please review the following picture(s):"
 questions <- c('which one is more beautiful?', 'which one is safer?')
@@ -176,8 +179,8 @@ streetscape::strview2pwc(data, k=1, header, questions, file = 'folder/filename')
 ([More instruction of importing text files into Qualtrics](https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/))
 
 ## Note
-Some functions in the package employ multi-core processing to accelerate computation whereas it is not 
-available on Windows operation system. 
+Some functions in the package employ multi-core processing to accelerate computation, whereas it is not 
+available on the Windows operating system. 
 
 ## Acknowledge 
 Thanks for the work of calcualting GVI in R done by Sachit Mahajan. (2023). greenR: An Open-Source Framework for Quantifying Urban Greenness. https://doi.org/10.13140/RG.2.2.36266.18888/1
@@ -185,7 +188,7 @@ Thanks for the work of calcualting GVI in R done by Sachit Mahajan. (2023). gree
 Thank d-vanos for [importing text files into Qualtrics](https://github.com/d-vanos/Qualtrics-Text-Files/tree/main)
 
 ## Issues and bugs
-If you discover a bug not associated with connection to the API that is
+If you discover a bug not associated with the connection to the API that is
 not already a [reported issue](https://github.com/billbillbilly/streetscape/issues), please [open
 a new issue](https://github.com/billbillbilly/streetscape/issues/new)
 providing a reproducible example.
