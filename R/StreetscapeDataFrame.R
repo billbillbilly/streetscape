@@ -368,6 +368,7 @@ StreetscapeDataFrame <- setRefClass(
       data_list <- split(.self$data,seq(nrow(.self$data)))
       num_workers <- set_workers()
       # download
+      d_mode <- if (Sys.info()[["sysname"]] == "Windows") "wb" else "auto"
       suppressWarnings(
         pbmcapply::pbmclapply(
           1:length(data_list),
@@ -378,7 +379,7 @@ StreetscapeDataFrame <- setRefClass(
               try(download.file(
                 this_row$thumb_original_url,
                 paste0(img_dir, "/", this_row$id, "_img.png"),
-                method = 'auto',
+                method = d_mode,
                 quiet = TRUE)
               )
             }

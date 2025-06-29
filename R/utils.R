@@ -131,6 +131,22 @@ request_img_meta <- function(token, bbox, limit, fields, ...) {
 }
 
 #' @noMd
+request_img_by_id <- function(id, fields, token) {
+  fields <- paste(fields, collapse=",")
+  url <- sprintf(
+    'https://graph.mapillary.com/%s?fields=%s&access_token=%s',
+    id, fields, token
+  )
+  response <- httr::GET(url) %>%
+    httr::content()
+  # Check if the response is empty
+  if (length(response) == 0 || identical(response, list())) {
+    return(0)
+  }
+  return(response)
+}
+
+#' @noMd
 return_field <- function(list, field_name) {
   if (field_name %in% names(list)) {
     return(list[[field_name]])
